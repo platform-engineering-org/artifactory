@@ -1,6 +1,8 @@
 - hosts: all
-  debugger: on_failed
   gather_facts: false
+  vars:
+    admin_user: artifactory
+    admin_password: artifactory # gitleaks:allow
 
   tasks:
     - name: Wait until the instance is ready
@@ -24,6 +26,24 @@
         disable_gpg_check: true
         state: present
 
+    - name: Create /opt/jfrog/artifactory/var/etc/access directory
+      become: true
+      ansible.builtin.file:
+        path: /opt/jfrog/artifactory/var/etc/access
+        state: directory
+        owner: artifactory
+        group: artifactory
+        mode: 0750
+
+    - name: Re-configure built-in administrator creds
+      become: true
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/bootstrap.creds.j2"
+        dest: /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
+        owner: artifactory
+        group: artifactory
+        mode: 0600
+
     - name: Artifactory service is enabled and running
       become: true
       ansible.builtin.systemd:
@@ -31,7 +51,7 @@
         enabled: true
         name: artifactory
 
-    - name: Make sure artifactory is up and running
+    - name: Make sure artifactory is healthy
       uri:
         url: http://{{inventory_hostname}}:8082/router/api/v1/system/health
         timeout: 130
