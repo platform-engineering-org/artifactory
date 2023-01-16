@@ -1,0 +1,39 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        args:
+          - --markdown-linebreak-ext=md
+      - id: check-docstring-first
+      - id: requirements-txt-fixer
+      - id: check-merge-conflict
+      - id: no-commit-to-branch
+        args:
+          - "--branch"
+          - "main"
+      - id: check-symlinks
+      - id: detect-private-key
+      - id: detect-aws-credentials
+        args:
+          - --allow-missing-credentials
+      - id: check-json
+  - repo: https://github.com/markdownlint/markdownlint
+    rev: v0.12.0
+    hooks:
+      - id: markdownlint
+        additional_dependencies: [rake]
+  - repo: https://github.com/maxbrunet/pre-commit-renovate
+    rev: 34.54.2
+    hooks:
+      - id: renovate-config-validator
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.77.0
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_validate
+  - repo: https://github.com/ansible-community/ansible-lint.git
+    rev: v6.9.1
+    hooks:
+      - id: ansible-lint
