@@ -26,6 +26,17 @@ variable "artifactory_iam_instance_profile" {
   description = "Artifactory IAM instance profile"
 }
 
+variable "ssh_key_name" {
+  type    = string
+  default = "tf-artifactory-ssh-key"
+}
+
+variable "ssh_private_file_name" {
+  type    = string
+  default = "tf-artifactory-ssh-key.pem"
+}
+
+
 variable "user" {
   type    = string
   default = ""
