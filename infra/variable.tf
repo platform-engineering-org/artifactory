@@ -1,9 +1,10 @@
 variable "aws_region" {
-  type    = string
-  default = "eu-central-1"
+  type        = string
+  default     = "eu-central-1"
+  description = "AWS region to launch servers."
 }
 
-variable "sg_name" {
+variable "artifactory_security_group_name" {
   type    = string
   default = "tf-artifactory-sg"
 }
@@ -36,6 +37,18 @@ variable "ssh_private_file_name" {
   default = "tf-artifactory-ssh-key.pem"
 }
 
+
+variable "artifactory_instance_type" {
+  type        = string
+  default     = "m4.xlarge"
+  description = "Artifactory EC2 instance type"
+}
+
+variable "artifactory_server_name" {
+  type        = string
+  default     = "artifactory"
+  description = "Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team"
+}
 
 variable "user" {
   type    = string

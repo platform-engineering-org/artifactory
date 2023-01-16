@@ -30,7 +30,7 @@ data "aws_ami" "centos_stream_8" {
 }
 
 resource "aws_security_group" "security_group" {
-  name        = var.sg_name
+  name        = var.artifactory_security_group_name
   description = "Artifactory inbound and outbound traffic"
 
   # SSH access from anywhere
@@ -131,4 +131,13 @@ resource "aws_key_pair" "key_pair" {
     when    = destroy
     command = "rm ~/.ssh/${self.id}.pem"
   }
+}
+
+resource "aws_instance" "artifactory_instance" {
+  ami                    = data.aws_ami.centos_stream_8.id
+  instance_type          = var.artifactory_instance_type
+  vpc_security_group_ids = [aws_security_group.security_group.id]
+  iam_instance_profile   = aws_iam_instance_profile.iam_instance_profile.name
+  key_name               = aws_key_pair.key_pair.key_name
+  tags                   = merge(var.tags, { Name = var.artifactory_server_name })
 }
