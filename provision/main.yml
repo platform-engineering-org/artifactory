@@ -8,3 +8,18 @@
 
     - name: Gather facts for first time
       ansible.builtin.setup:
+
+    - name: Add artifactory repository
+      become: true
+      ansible.builtin.yum_repository:
+        name: artifactory-pro-rpms
+        description: artifactory Pro
+        baseurl: https://releases.jfrog.io/artifactory/artifactory-pro-rpms/
+
+    - name: Artifactory Pro present
+      become: true
+      ansible.builtin.dnf:
+        name: jfrog-artifactory-pro
+        update_cache: true
+        disable_gpg_check: true
+        state: present
