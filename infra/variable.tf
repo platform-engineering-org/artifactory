@@ -8,6 +8,24 @@ variable "sg_name" {
   default = "tf-artifactory-sg"
 }
 
+variable "secretsmanager_policy" {
+  type        = string
+  default     = "tf-secretsmanager-policy"
+  description = "Consume Secrets from Secrets Manager"
+}
+
+variable "artifactory_iam_role_name" {
+  type        = string
+  default     = "tf-artifactory-iam-role-name"
+  description = "Artifactory instance IAM Role name"
+}
+
+variable "artifactory_iam_instance_profile" {
+  type        = string
+  default     = "tf-artifactory-iam-instance-profile"
+  description = "Artifactory IAM instance profile"
+}
+
 variable "user" {
   type    = string
   default = ""

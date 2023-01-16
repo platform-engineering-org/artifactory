@@ -65,3 +65,50 @@ resource "aws_security_group" "security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+data "aws_iam_policy_document" "assume_policy" {
+  statement {
+    sid = "1"
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+
+    actions = [
+      "sts:AssumeRole"
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "secretmanager_iam_policy_document" {
+  statement {
+    sid = "1"
+
+    actions = [
+      "secretsmanager:GetResourcePolicy",
+      "secretsmanager:GetSecretValue",
+      "secretsmanager:DescribeSecret",
+      "secretsmanager:ListSecretVersionIds",
+      "secretsmanager:ListSecrets"
+    ]
+
+    resources = [
+      "*",
+    ]
+  }
+}
+
+resource "aws_iam_role" "iam_role" {
+  name               = var.artifactory_iam_role_name
+  assume_role_policy = data.aws_iam_policy_document.assume_policy.json
+  inline_policy {
+    name   = var.secretsmanager_policy
+    policy = data.aws_iam_policy_document.secretmanager_iam_policy_document.json
+  }
+}
+
+resource "aws_iam_instance_profile" "iam_instance_profile" {
+  name = var.artifactory_iam_instance_profile
+  role = aws_iam_role.iam_role.name
+}
