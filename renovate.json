@@ -1,0 +1,10 @@
+{
+    "extends": [
+        "config:base",
+        ":enablePreCommit"
+    ],
+    "automerge": false,
+    "schedule": [
+        "every weekend"
+    ]
+}
