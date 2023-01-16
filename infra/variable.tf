@@ -2,6 +2,12 @@ variable "aws_region" {
   type    = string
   default = "eu-central-1"
 }
+
+variable "sg_name" {
+  type    = string
+  default = "tf-artifactory-sg"
+}
+
 variable "user" {
   type    = string
   default = ""
