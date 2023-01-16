@@ -1,0 +1,9 @@
+plugin: aws_ec2
+regions:
+  - eu-central-1
+  - eu-west-2
+filters:
+  instance-state-name: running
+  tag:Project: coffr
+include_filters:
+  - tag:User: "{{ lookup('env', 'USER') }}"

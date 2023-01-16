@@ -1,0 +1,10 @@
+- hosts: all
+  debugger: on_failed
+  gather_facts: false
+
+  tasks:
+    - name: Wait until the instance is ready
+      ansible.builtin.wait_for_connection:
+
+    - name: Gather facts for first time
+      ansible.builtin.setup:
