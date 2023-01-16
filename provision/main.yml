@@ -29,11 +29,14 @@
     - name: Create /opt/jfrog/artifactory/var/etc/access directory
       become: true
       ansible.builtin.file:
-        path: /opt/jfrog/artifactory/var/etc/access
+        path: "{{ item }}"
         state: directory
         owner: artifactory
         group: artifactory
         mode: 0750
+      with_items:
+        - /opt/jfrog/artifactory/var/etc/access
+        - /opt/jfrog/artifactory/var/etc/artifactory
 
     - name: Re-configure built-in administrator creds
       become: true
@@ -43,6 +46,14 @@
         owner: artifactory
         group: artifactory
         mode: 0600
+
+    - name: use license strings
+      become: true
+      vars:
+        license_string: "{{ lookup('amazon.aws.aws_secret', 'artifactory') | from_json}}"
+      copy:
+        dest: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
+        content: "{{ license_string.artifactory_license1 }}"
 
     - name: Artifactory service is enabled and running
       become: true
