@@ -6,7 +6,7 @@ variable "aws_region" {
 
 variable "artifactory_security_group_name" {
   type    = string
-  default = "tf-artifactory-sg"
+  default = "tf-artifactory-security-group"
 }
 
 variable "secretsmanager_policy" {
@@ -40,7 +40,7 @@ variable "ssh_private_file_name" {
 
 variable "artifactory_instance_type" {
   type        = string
-  default     = "m4.xlarge"
+  default     = "m5.large"
   description = "Artifactory EC2 instance type"
 }
 
