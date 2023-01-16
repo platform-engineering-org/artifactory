@@ -112,3 +112,23 @@ resource "aws_iam_instance_profile" "iam_instance_profile" {
   name = var.artifactory_iam_instance_profile
   role = aws_iam_role.iam_role.name
 }
+
+resource "tls_private_key" "tls_private_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "key_pair" {
+  key_name   = var.ssh_key_name
+  public_key = tls_private_key.tls_private_key.public_key_openssh
+
+  provisioner "local-exec" {
+    when    = create
+    command = "echo '${tls_private_key.tls_private_key.private_key_openssh}' > ~/.ssh/${var.ssh_private_file_name}; chmod 400 ~/.ssh/${var.ssh_private_file_name}"
+  }
+
+  provisioner "local-exec" {
+    when    = destroy
+    command = "rm ~/.ssh/${self.id}.pem"
+  }
+}
