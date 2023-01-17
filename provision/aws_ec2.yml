@@ -4,6 +4,6 @@ regions:
   - eu-west-2
 filters:
   instance-state-name: running
-  tag:Project: coffr
+  tag:Project: platform-engineering
 include_filters:
   - tag:User: "{{ lookup('env', 'USER') }}"

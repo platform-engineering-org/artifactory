@@ -56,7 +56,9 @@ variable "user" {
 }
 
 variable "tags" {
-  type        = map(string)
-  default     = { "Project" = "coffr" }
+  type = map(string)
+  default = {
+    "Project" = "platform-engineering"
+  }
   description = "Resource tags"
 }

@@ -12,6 +12,7 @@ IaC Spinning Artifactory instance on AWS
   key name - artifactory_license_1
 * make
 * terraform
+* terragrunt
 * ansible
 
 ### pre-commit
