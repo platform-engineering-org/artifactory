@@ -5,16 +5,18 @@ AWS_REGION := $(shell aws configure get region)
 endif
 
 init:
-	terraform -chdir=infra init
+	terraform -chdir=infra/modules/artifactory init
 
 fmt:
-	terraform -chdir=infra fmt -check
+	terraform -chdir=infra/modules/artifactory fmt -check
 
 plan:
-	terraform -chdir=infra plan -var "user=${USER}" -var "aws_region=${AWS_REGION}" -input=false
+	terragrunt terragrunt-config ./infra/terragrunt.hcl plan
+
+	# -chdir=infra/modules/artifactory plan -var "user=${USER}" -var "aws_region=${AWS_REGION}" -input=false
 
 bootstrap:
-	terraform -chdir=infra apply -auto-approve -var "user=${USER}" -var "aws_region=${AWS_REGION}" -input=false
+	terraform -chdir=infra/modules/artifactory apply -auto-approve -var "user=${USER}" -var "aws_region=${AWS_REGION}" -input=false
 
 provision:
 	ansible-galaxy install -r ./provision/requirements.yml
@@ -23,4 +25,4 @@ provision:
 up: bootstrap provision
 
 down:
-	terraform -chdir=infra destroy -auto-approve -var "user=${USER}" -var "aws_region=${AWS_REGION}"
+	terraform -chdir=infra/modules/artifactory destroy -auto-approve -var "user=${USER}" -var "aws_region=${AWS_REGION}"
