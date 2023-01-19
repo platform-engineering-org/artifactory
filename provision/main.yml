@@ -52,7 +52,7 @@
       become: true
       copy:
         dest: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
-        content: "{{ license_string.artifactory_license1 }}"
+        content: "{{ license_string.artifactory_license2 }}"
 
     - name: Artifactory service is enabled and running
       become: true
