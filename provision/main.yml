@@ -1,8 +1,9 @@
 - hosts: all
   gather_facts: false
   vars:
-    admin_user: artifactory
-    admin_password: artifactory # gitleaks:allow
+    license_string: "{{ lookup('amazon.aws.aws_secret', 'artifactory') | from_json}}"
+    admin_user: "{{ license_string.username }}"
+    admin_password: "{{ license_string.password }}"
 
   tasks:
     - name: Wait until the instance is ready
@@ -49,8 +50,6 @@
 
     - name: use license strings
       become: true
-      vars:
-        license_string: "{{ lookup('amazon.aws.aws_secret', 'artifactory') | from_json}}"
       copy:
         dest: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
         content: "{{ license_string.artifactory_license1 }}"
