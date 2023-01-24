@@ -141,4 +141,7 @@ resource "aws_instance" "artifactory_instance" {
   iam_instance_profile   = aws_iam_instance_profile.iam_instance_profile.name
   key_name               = aws_key_pair.key_pair.key_name
   tags                   = merge(var.tags, { Name = var.artifactory_server_name })
+  root_block_device {
+    volume_size = 100
+  }
 }
