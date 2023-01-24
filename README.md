@@ -6,10 +6,12 @@ IaC Spinning Artifactory instance on AWS
 
 ### System Requirements
 
-* AWS [credentials settings][1]
-* AWS Region - Currently must be `eu-west-2`
-* Artifactory license stored in AWS Secrets Manager. Secret name: artifactory.
-  key name - artifactory_license_1
+* AWS [credentials settings][1], profile __default__
+* Define a secret in AWS Secrets Manager:
+  * Secret name: artifactory
+  * key __artifactory_license_1__
+  * key __username__ (value must be lowercase)
+  * key __password__ (value must be lowercase)
 * make
 * terraform
 * terragrunt
@@ -24,16 +26,37 @@ pip install --user pre-commit
 pre-commit install
 ```
 
-### Environment Up
+### DEV Environment Up
 
 ```shell
 make up
 ```
 
-### Environment Down
+### DEV Environment Down
 
 ```shell
 make down
+```
+
+## STAGE environment
+
+* Setup AWS profile named __stage__
+* Define a secret in AWS Secrets Manager:
+  * Secret name: artifactory
+  * key __artifactory_license_2__
+  * key __username__ (value must be lowercase)
+  * key __password__ (value must be lowercase)
+
+### STAGE Environment Up
+
+```shell
+make ENV=stage up
+```
+
+### STAGE Environment Down
+
+```shell
+make ENV=stage down
 ```
 
 [1]: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html

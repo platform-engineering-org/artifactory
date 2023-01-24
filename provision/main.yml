@@ -4,6 +4,7 @@
     license_string: "{{ lookup('amazon.aws.aws_secret', 'artifactory') | from_json}}"
     admin_user: "{{ license_string.username }}"
     admin_password: "{{ license_string.password }}"
+    env: "{{ ENV }}"
 
   tasks:
     - name: Wait until the instance is ready
@@ -48,11 +49,21 @@
         group: artifactory
         mode: 0600
 
+    - name: Set license for non STAGE environment
+      ansible.builtin.set_fact:
+        license: "{{ license_string.artifactory_license1 }}"
+      when: env != "stage"
+
+    - name: Set license for STAGE environment
+      ansible.builtin.set_fact:
+        license: "{{ license_string.artifactory_license2 }}"
+      when: env == "stage"
+
     - name: use license strings
       become: true
       copy:
         dest: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
-        content: "{{ license_string.artifactory_license1 }}"
+        content: "{{ license }}"
 
     - name: Artifactory service is enabled and running
       become: true
