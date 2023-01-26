@@ -34,7 +34,7 @@ variable "ssh_key_name" {
 
 variable "ssh_private_file_name" {
   type    = string
-  default = "tf-artifactory-ssh-key.pem"
+  default = "/workspace/tf-artifactory-ssh-key.pem"
 }
 
 

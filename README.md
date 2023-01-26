@@ -12,10 +12,7 @@ IaC Spinning Artifactory instance on AWS
   * key __artifactory_license_1__
   * key __username__ (value must be lowercase)
   * key __password__ (value must be lowercase)
-* make
-* terraform
-* terragrunt
-* ansible
+* `podman` or `docker`
 
 ### pre-commit
 
@@ -46,6 +43,7 @@ make down
   * key __artifactory_license_2__
   * key __username__ (value must be lowercase)
   * key __password__ (value must be lowercase)
+* `podman` or `docker`
 
 ### STAGE Environment Up
 

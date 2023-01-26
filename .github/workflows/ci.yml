@@ -28,4 +28,4 @@ jobs:
           terragrunt_version: 0.43.0
 
       - name: Terragrunt Plan
-        run: make ENV=ci plan
+        run: make ENV=ci plan-in-container
