@@ -122,16 +122,12 @@ resource "tls_private_key" "tls_private_key" {
 resource "aws_key_pair" "key_pair" {
   key_name   = var.ssh_key_name
   public_key = tls_private_key.tls_private_key.public_key_openssh
+}
 
-  provisioner "local-exec" {
-    when    = create
-    command = "echo '${tls_private_key.tls_private_key.private_key_openssh}' > ~/.ssh/${var.ssh_private_file_name}; chmod 400 ~/.ssh/${var.ssh_private_file_name}"
-  }
-
-  provisioner "local-exec" {
-    when    = destroy
-    command = "rm ~/.ssh/${self.id}.pem"
-  }
+resource "local_file" "private_key" {
+  content         = tls_private_key.tls_private_key.private_key_openssh
+  filename        = var.ssh_private_file_name
+  file_permission = 0400
 }
 
 resource "aws_instance" "artifactory_instance" {
