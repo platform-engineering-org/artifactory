@@ -57,7 +57,7 @@ variable "user" {
 
 variable "aws_profile" {
   type    = string
-  default = ""
+  default = "default"
 }
 
 variable "tags" {

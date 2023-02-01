@@ -12,6 +12,7 @@ IaC Spinning Artifactory instance on AWS
   * key __artifactory_license_1__
   * key __username__ (value must be lowercase)
   * key __password__ (value must be lowercase)
+* `make`
 * `podman` or `docker`
 
 ### pre-commit
@@ -21,6 +22,18 @@ To run pre-commit locally, follow the instructions:
 ```shell
 pip install --user pre-commit
 pre-commit install
+```
+
+### DEV Environment init
+
+```shell
+make init
+```
+
+### DEV Environment reconfigure
+
+```shell
+make reconfigure
 ```
 
 ### DEV Environment Up
@@ -43,7 +56,20 @@ make down
   * key __artifactory_license_2__
   * key __username__ (value must be lowercase)
   * key __password__ (value must be lowercase)
+* `make`
 * `podman` or `docker`
+
+### STAGE Environment init
+
+```shell
+make init
+```
+
+### STAGE Environment reconfigure
+
+```shell
+make reconfigure
+```
 
 ### STAGE Environment Up
 
