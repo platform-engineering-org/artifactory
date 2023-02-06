@@ -21,11 +21,13 @@ jobs:
       - uses: pre-commit/action@v3.0.0
 
       - name: Setup
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.7
 
       - uses: eLco/setup-terragrunt@v1.0.2
         with:
           terragrunt_version: 0.43.0
 
-      - name: Terragrunt Plan
+      - name: Plan
         run: make ENV=ci plan-in-container
