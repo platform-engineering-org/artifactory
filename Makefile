@@ -28,8 +28,8 @@ else ifeq ($(ENV), stage)
 endif
 
 HELPER_IMAGE := ghcr.io/platform-engineering-org/helper:latest
-in_container = ${ENGINE} run --rm --name helper -v $(PWD):/workspace:rw -v ~/.aws:/root/.aws:ro -w /workspace --security-opt label=disable --env USER=${USER} --env AWS_REGION=${AWS_REGION} --env OS_ENV=container ${HELPER_IMAGE} make $1
-TERRAGRUNT_CMD = cd infra/live/${ENV}/artifactory && TF_LOG=DEBUG terragrunt
+in_container = ${ENGINE} run --rm --name helper -v $(PWD):/workspace:rw -v ~/.aws:/root/.aws:ro -w /workspace --security-opt label=disable --env USER=${USER} --env AWS_REGION=${AWS_REGION} --env OS_ENV=container ${HELPER_IMAGE} echo ${ENV} && make $1
+TERRAGRUNT_CMD = cd infra/live/${ENV}/artifactory && terragrunt
 
 
 init-in-container:
