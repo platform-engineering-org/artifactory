@@ -36,7 +36,7 @@
         state: directory
         owner: artifactory
         group: artifactory
-        mode: 0750
+        mode: u=rwx,g=rx
       with_items:
         - /opt/jfrog/artifactory/var/etc/access
         - /opt/jfrog/artifactory/var/etc/artifactory
@@ -48,7 +48,7 @@
         dest: /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
         owner: artifactory
         group: artifactory
-        mode: 0600
+        mode: u=rw
 
     - name: Set license for non STAGE environment
       ansible.builtin.set_fact:
