@@ -1,3 +1,7 @@
+---
+ci:
+  skip: [terraform_fmt, terraform_validate]
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -26,7 +30,7 @@ repos:
         additional_dependencies: [rake]
         args: [-s, .markdownlint.rb]
   - repo: https://github.com/maxbrunet/pre-commit-renovate
-    rev: 34.152.5
+    rev: 34.157.0
     hooks:
       - id: renovate-config-validator
   - repo: https://github.com/antonbabenko/pre-commit-terraform
@@ -35,6 +39,6 @@ repos:
       - id: terraform_fmt
       - id: terraform_validate
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v6.13.1
+    rev: v6.14.0
     hooks:
       - id: ansible-lint
