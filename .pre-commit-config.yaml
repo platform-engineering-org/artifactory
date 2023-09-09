@@ -30,15 +30,15 @@ repos:
         additional_dependencies: [rake]
         args: [-s, .markdownlint.rb]
   - repo: https://github.com/maxbrunet/pre-commit-renovate
-    rev: 35.14.1
+    rev: 35.159.5
     hooks:
       - id: renovate-config-validator
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.77.1
+    rev: v1.83.2
     hooks:
       - id: terraform_fmt
       - id: terraform_validate
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v6.14.2
+    rev: v6.19.0
     hooks:
       - id: ansible-lint
