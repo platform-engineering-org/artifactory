@@ -29,7 +29,7 @@ jobs:
           terragrunt_version: 0.43.0
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@50ac8dd1e1b10d09dac7b8727528b91bed831ac0 # v3
         with:
           role-to-assume: ${{ secrets.ROLE }}
           aws-region: eu-west-2
