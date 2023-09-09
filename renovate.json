@@ -1,11 +1,6 @@
 {
-    "extends": [
-        "config:base",
-        ":enablePreCommit",
-        "group:allNonMajor"
-    ],
-    "automerge": false,
-    "schedule": [
-        "every weekend"
-    ]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>platform-engineering-org/.github"
+  ]
 }
