@@ -30,11 +30,11 @@ repos:
         additional_dependencies: [rake]
         args: [-s, .markdownlint.rb]
   - repo: https://github.com/maxbrunet/pre-commit-renovate
-    rev: 36.91.0
+    rev: 36.96.3
     hooks:
       - id: renovate-config-validator
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.83.2
+    rev: v1.83.3
     hooks:
       - id: terraform_fmt
       - id: terraform_validate
