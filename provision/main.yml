@@ -76,7 +76,7 @@
 
     - name: Make sure artifactory is healthy
       ansible.builtin.uri:
-        url: http://{{inventory_hostname}}:8082/router/api/v1/system/health
+        url: http://{{ inventory_hostname }}:8082/router/api/v1/system/health
         timeout: 130
         status_code: 200
       register: result
